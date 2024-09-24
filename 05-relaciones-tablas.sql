@@ -26,9 +26,23 @@ join public."Track" b
 on a."TrackId" = b."TrackId" 
 
 -- Ejercicio 6: Encuentra los nombres de los artistas y los géneros de sus pistas.
-select a."Name" as artista,  b."Name" as genero from public."Artist"  a
-JOIN public."Genre" b
-on a."ArtistId" = b."GenreId" 
+
+SELECT a."Name" AS "ArtistName", 
+       --b."ArtistId", 
+      -- b."AlbumId", 
+       --c."Name" AS "TrackName", 
+       --c."GenreId",
+       d."Name" as genre
+FROM public."Artist" a
+JOIN public."Album" b
+  ON a."ArtistId" = b."ArtistId"
+JOIN public."Track" c
+  ON b."AlbumId" = c."AlbumId"
+join public."Genre" d
+on c."GenreId" = d."GenreId"
+group by a."Name", d."Name" ;
+
+
 --  Ejercicio 7: Muestra los nombres de las pistas y el tipo de medio en el que están disponibles.
 select a."Name" as pista, b."Name" as medio from public."Track" a 
 join public."MediaType" b
